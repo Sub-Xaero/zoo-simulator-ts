@@ -4,13 +4,14 @@ import React, {useState} from "react";
 import {ActionButton} from "./ActionButton";
 import {Animal} from "./Animal";
 import "./App.css";
+import {FoodContext, useFood} from "./Food";
 import {Elephant} from "./models/Elephant";
 import {Giraffe} from "./models/Giraffe";
 import {Monkey} from "./models/Monkey";
 
-
 function App() {
   let [time, setTime] = useState(1);
+  let [food, setFood] = useFood(0);
 
   let [animals, setAnimals] = useState([
     new Monkey(),
@@ -45,6 +46,7 @@ function App() {
   };
 
   let feed = () => {
+    setFood((prevFood) => Math.min(5, prevFood + 1));
     setAnimals((prevState) =>
       prevState.map((animal) => {
           if (animal.dead) {
@@ -70,18 +72,20 @@ function App() {
         </h1>
 
         <div className="grid grid-cols-3 gap-3">
-          {
-            animals.map(animal =>
-              <Animal
-                key={animal.name}
-                health={animal.health}
-                image={animal.image}
-                name={animal.name}
-                dead={animal.dead}
-                injured={animal.injured}
-              />,
-            )
-          }
+          <FoodContext.Provider value={food}>
+            {
+              animals.map(animal =>
+                <Animal
+                  key={animal.name}
+                  health={animal.health}
+                  image={animal.image}
+                  name={animal.name}
+                  dead={animal.dead}
+                  injured={animal.injured}
+                />,
+              )
+            }
+          </FoodContext.Provider>
         </div>
         <div className="grid grid-cols-2 gap-3 mt-6 w-1/2">
           <ActionButton onClick={feed}> <FontAwesomeIcon icon={faPizzaSlice}/> Feed</ActionButton>
