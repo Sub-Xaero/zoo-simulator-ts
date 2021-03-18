@@ -4,13 +4,8 @@ export function useFood(initialState: number): [number, React.Dispatch<React.Set
   let [food, setFood] = useState(initialState);
 
   useEffect(() => {
-    let foodExpiryTimout = setInterval(() => {
-      setFood((prevFood) => Math.max(0, prevFood - 1));
-    }, 1500);
-
-    return () => {
-      clearTimeout(foodExpiryTimout);
-    };
+    let foodExpiryTimout = setInterval(() => setFood((prevFood) => Math.max(0, prevFood - 1)), 1500);
+    return () => clearTimeout(foodExpiryTimout);
   });
 
   return [food, setFood];

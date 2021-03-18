@@ -17,9 +17,11 @@ export function Animal(props: AppProps) {
     <div className={"text-center  p-4  rounded text-black " + (props.dead ? " dead " : (props.injured ? " injured " : " alive "))}>
       <img src={props.image} className={"animal h-32 mx-auto"} alt={props.name + " Image"}/>
       <div className={"flex h-10 justify-evenly items-center"}>
+        {!props.dead &&
         <FoodContext.Consumer>
-          {food => Array(food).fill(food).map((x, index) => <img className={"food h-6"} key={index} src={hamburger}/>)}
+          {(food) => Array(food).fill(food).map((x, index) => <img alt={""} className={"food h-6"} key={index} src={hamburger}/>)}
         </FoodContext.Consumer>
+        }
       </div>
       <p className={"text-sm my-1"}>{props.name}</p>
       <hr/>

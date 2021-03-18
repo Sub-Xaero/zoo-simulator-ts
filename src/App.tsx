@@ -19,9 +19,8 @@ function App() {
     new Elephant(),
   ]);
 
-  let timeSuffix = (): string => {
-    return time < 12 ? "am" : "pm";
-  };
+  let timeSuffix = (): string => time < 12 ? "am" : "pm";
+  let allAnimalsDead = (): boolean => animals.every((animal) => animal.dead);
 
   let tick = () => {
     setTime((prevTime) => prevTime === 23 ? 0 : prevTime + 1);
@@ -46,6 +45,10 @@ function App() {
   };
 
   let feed = () => {
+    if (allAnimalsDead()) {
+      return;
+    }
+
     setFood((prevFood) => Math.min(5, prevFood + 1));
     setAnimals((prevState) =>
       prevState.map((animal) => {
