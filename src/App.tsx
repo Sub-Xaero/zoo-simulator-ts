@@ -1,23 +1,92 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {faClock, faPizzaSlice} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import React, {useState} from "react";
+import {ActionButton} from "./ActionButton";
+import {Animal} from "./Animal";
+import "./App.css";
+import {Elephant} from "./models/Elephant";
+import {Giraffe} from "./models/Giraffe";
+import {Monkey} from "./models/Monkey";
+
 
 function App() {
+  let [time, setTime] = useState(1);
+
+  let [animals, setAnimals] = useState([
+    new Monkey(),
+    new Giraffe(),
+    new Elephant(),
+  ]);
+
+  let timeSuffix = (): string => {
+    return time < 12 ? "am" : "pm";
+  };
+
+  let tick = () => {
+    setTime((prevTime) => prevTime === 23 ? 0 : prevTime + 1);
+    setAnimals((prevState) =>
+      prevState.map((animal) => {
+          if (animal.dead) {
+            return animal;
+          }
+          let damage = Math.floor(Math.random() * 20);
+          animal.health = Math.max(0, animal.health - damage);
+
+          if (animal.willDie()) {
+            animal.dead = true;
+          } else if (animal.canSurviveInjury() && animal.willBeInjured()) {
+            animal.injured = true;
+          } else {
+          }
+          return animal;
+        },
+      ),
+    );
+  };
+
+  let feed = () => {
+    setAnimals((prevState) =>
+      prevState.map((animal) => {
+          if (animal.dead) {
+            return animal;
+          }
+          let healthGain = Math.floor(Math.random() * 20);
+          animal.health = Math.min(100, animal.health + healthGain);
+          if (animal.injured && !animal.willBeInjured()) {
+            animal.injured = false;
+          }
+          return animal;
+        },
+      ),
+    );
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1 className={"text-3xl mb-6"}>
+          The time is {time}{timeSuffix()}
+          <FontAwesomeIcon icon={faClock} className={"ml-2"}/>
+        </h1>
+
+        <div className="grid grid-cols-3 gap-3">
+          {
+            animals.map(animal =>
+              <Animal
+                key={animal.name}
+                health={animal.health}
+                image={animal.image}
+                name={animal.name}
+                dead={animal.dead}
+                injured={animal.injured}
+              />,
+            )
+          }
+        </div>
+        <div className="grid grid-cols-2 gap-3 mt-6 w-1/2">
+          <ActionButton onClick={feed}> <FontAwesomeIcon icon={faPizzaSlice}/> Feed</ActionButton>
+          <ActionButton onClick={tick}> <FontAwesomeIcon icon={faClock}/> Advance Time</ActionButton>
+        </div>
       </header>
     </div>
   );
