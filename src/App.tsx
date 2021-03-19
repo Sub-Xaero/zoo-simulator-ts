@@ -1,15 +1,16 @@
 import {faClock, faPizzaSlice} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React, {useState} from "react";
-import {ActionButton} from "./ActionButton";
-import {Animal} from "./Animal";
 import "./App.css";
+import {ActionButton} from "./components/ActionButton";
+import {Animal} from "./components/Animal";
 import {FoodContext, useFood} from "./Food";
 import {Elephant} from "./models/Elephant";
 import {Giraffe} from "./models/Giraffe";
 import {Monkey} from "./models/Monkey";
 
 function App() {
+  // Local State
   let [time, setTime] = useState(1);
   let [food, setFood] = useFood(0);
 
@@ -19,13 +20,19 @@ function App() {
     new Elephant(),
   ]);
 
+  // Computed State
   let timeSuffix = (): string => time < 12 ? "am" : "pm";
   let allAnimalsDead = (): boolean => animals.every((animal) => animal.dead);
 
-  let tick = () => {
+  // Logic
+  // TODO: Should ideally be an action on a Redux store, to lift the logic out of the component.
+  let tick = (event?: MouseEvent) => {
+    event?.preventDefault();
+    event?.stopPropagation();
+
     setTime((prevTime) => prevTime === 23 ? 0 : prevTime + 1);
-    setAnimals((prevState) =>
-      prevState.map((animal) => {
+    setAnimals(
+      animals.map((animal) => {
           if (animal.dead) {
             return animal;
           }
@@ -36,7 +43,6 @@ function App() {
             animal.dead = true;
           } else if (animal.canSurviveInjury() && animal.willBeInjured()) {
             animal.injured = true;
-          } else {
           }
           return animal;
         },
@@ -44,7 +50,11 @@ function App() {
     );
   };
 
-  let feed = () => {
+  // TODO: Should ideally be an action on a Redux store, to lift the logic out of the component.
+  let feed = (event?: MouseEvent) => {
+    event?.preventDefault();
+    event?.stopPropagation();
+
     if (allAnimalsDead()) {
       return;
     }

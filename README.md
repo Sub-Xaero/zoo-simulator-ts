@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Design Decisions
+React Hooks - Chosen as a way to re-use pieces of logic between components and keep the code clean and maintainable.
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:

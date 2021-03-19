@@ -1,8 +1,9 @@
 import {faBandAid, faHeart, faSkullCrossbones} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
-import {FoodContext} from "./Food";
-import hamburger from "./images/hamburger.png";
+import {FoodContext} from "../Food";
+import hamburger from "../images/hamburger.png";
+import "./Animal.css";
 
 interface AppProps {
   image: any;

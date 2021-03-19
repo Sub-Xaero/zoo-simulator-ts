@@ -1,0 +1,37 @@
+@keyframes breathe {
+	0% {
+		transform: rotate(-2deg) translateX(-40%);
+	}
+	25% {
+		transform: rotate(2deg) translateX(-25%)
+	}
+	50% {
+		transform: rotate(-2deg) translateX(0%)
+	}
+	75% {
+		transform: rotate(2deg) translateX(25%)
+	}
+	100% {
+		transform: rotate(-2deg) translateX(40%);
+	}
+}
+
+.alive {
+	@apply bg-white;
+}
+
+.alive img.animal {
+	animation-name: breathe;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+.injured {
+	@apply bg-red-400;
+}
+
+.dead {
+	@apply bg-gray-300;
+	filter: grayscale(100%);
+}
