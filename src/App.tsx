@@ -82,21 +82,21 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className={"text-3xl bg-gray-500 p-4 rounded w-full md:w-1/2"}>
+        <h1 className={"text-3xl bg-gray-500 p-4 rounded w-full md:w-10/12"}>
           The time is {time}{timeSuffix()}
           <FontAwesomeIcon icon={faClock} className={"ml-2"}/>
         </h1>
 
-        <div className="grid grid-cols-2 gap-3 my-8 w-full md:w-1/2">
+        <div className="grid grid-cols-2 gap-3 my-8 w-full md:w-10/12">
           <ActionButton onClick={feed}> <FontAwesomeIcon icon={faPizzaSlice}/> Feed</ActionButton>
           <ActionButton onClick={tick}> <FontAwesomeIcon icon={faClock}/> Advance Time</ActionButton>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-3 gap-3 w-full md:w-10/12">
           <FoodContext.Provider value={food}>
             {
               animals.map(animal =>
                 <Animal
-                  key={animal.name}
+                  key={animal.id}
                   health={animal.health}
                   image={animal.image}
                   name={animal.name}
