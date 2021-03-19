@@ -1,6 +1,6 @@
 @keyframes breathe {
 	0% {
-		transform: rotate(-2deg) translateX(-40%);
+		transform: rotate(-2deg) translateX(-50%);
 	}
 	25% {
 		transform: rotate(2deg) translateX(-25%)
@@ -12,8 +12,21 @@
 		transform: rotate(2deg) translateX(25%)
 	}
 	100% {
-		transform: rotate(-2deg) translateX(40%);
+		transform: rotate(-2deg) translateX(50%);
 	}
+}
+
+.animal-wrapper {
+	overflow: hidden;
+}
+
+.jungle {
+	background: url("../images/jungle.jpg");
+	background-attachment: scroll;
+	background-size: cover;
+	background-repeat: no-repeat;
+	overflow: hidden;
+	border: 2px solid black;
 }
 
 .alive {
@@ -21,10 +34,31 @@
 }
 
 .alive img.animal {
+	transform-origin: center;
 	animation-name: breathe;
 	animation-duration: 2s;
 	animation-iteration-count: infinite;
 	animation-direction: alternate;
+}
+
+.animal-wrapper:nth-child(2n) img.animal {
+	animation-delay: -10s
+}
+
+.animal-wrapper:nth-child(2n+1) img.animal {
+	animation-delay: -30s
+}
+
+.animal-wrapper:nth-child(3n) img.animal {
+	animation-delay: -20s;
+}
+
+.animal-wrapper:nth-child(5n) img.animal {
+	animation-delay: -40s
+}
+
+.animal-wrapper:nth-child(7n) img.animal {
+	animation-delay: -15s
 }
 
 .injured {
@@ -33,5 +67,5 @@
 
 .dead {
 	@apply bg-gray-300;
-	filter: grayscale(100%);
+	filter: grayscale(100%) opacity(20%);
 }

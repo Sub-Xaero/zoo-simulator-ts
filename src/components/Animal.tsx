@@ -15,14 +15,16 @@ interface AppProps {
 
 export function Animal(props: AppProps) {
   return (
-    <div className={"text-center  p-4  rounded text-black " + (props.dead ? " dead " : (props.injured ? " injured " : " alive "))}>
-      <img src={props.image} className={"animal h-32 mx-auto"} alt={props.name + " Image"}/>
-      <div className={"flex h-10 justify-evenly items-center"}>
-        {!props.dead &&
-        <FoodContext.Consumer>
-          {(food) => Array(food).fill(food).map((x, index) => <img alt={""} className={"food h-6"} key={index} src={hamburger}/>)}
-        </FoodContext.Consumer>
-        }
+    <div className={"text-center  p-4  rounded text-black animal-wrapper  " + (props.dead ? " dead " : (props.injured ? " injured " : " alive "))}>
+      <div className={"jungle rounded"}>
+        <img src={props.image} className={"animal h-32 mx-auto"} alt={props.name + " Image"}/>
+        <div className={"flex h-10 justify-start items-center rounded shadow-inner bg-gray-100 mx-2 mb-2"}>
+          {!props.dead &&
+          <FoodContext.Consumer>
+            {(food) => Array(food).fill(food).map((x, index) => <img alt={""} className={"food h-6"} key={index} src={hamburger}/>)}
+          </FoodContext.Consumer>
+          }
+        </div>
       </div>
       <p className={"text-sm my-1"}>{props.name}</p>
       <hr/>
