@@ -19,7 +19,7 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
     "uuid": "^8.3.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^3.5.1"
   },
   "scripts": {
     "start": "craco start",
